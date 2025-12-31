@@ -1,15 +1,13 @@
 Performance rating data
-```sql
-1. Which movies generated the highest revenue?
-
+ 
+#1. Which movies generated the highest revenue?
 SELECT revenue, original_title                                                 
 FROM movies 
 ORDER BY revenue   
 DESC LIMIT 5;
  
 
-2. How many movies has each director made?
-
+#2. How many movies has each director made?
 SELECT name, 
 COUNT(original_title) 
 FROM directors 
@@ -18,14 +16,13 @@ ON directors.uid = movies.uid
 GROUP BY name 
 ORDER BY name;
 
-3. What is the total and average revenue across all movies?
+#3. What is the total and average revenue across all movies?
 SELECT SUM(revenue), AVG (revenue) 
 FROM movies;
 
+
 Comparison
-
-1. How do average ratings differ by director?
-
+#1. How do average ratings differ by director?
 SELECT
     name AS director_name,
     AVG(vote_average) AS avg_rating,
@@ -38,7 +35,7 @@ GROUP BY name
 HAVING COUNT(movies.id) >= 3
 ORDER BY avg_rating DESC;
 
-2. How does total revenue compare across release years?
+#2. How does total revenue compare across release years?
 SELECT 
     SUBSTR(release_date,1,4) AS release_year, 
     SUM(revenue) AS total_revenue, 
@@ -54,7 +51,7 @@ release_year  total_revenue  movie_count
 2015          22775024221    210        
 2009          21072651506    245   
 
-3. How do average budgets differ by director?
+#3. How do average budgets differ by director?
 SELECT 
     name, 
     AVG(budget) AS average_budget 
