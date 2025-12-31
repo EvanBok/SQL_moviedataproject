@@ -20,3 +20,4 @@ CREATE TABLE `directors` (
 `gender` INTEGER,
 `uid` INTEGER,
 `department` TEXT);
+
