@@ -86,13 +86,39 @@ SELECT  SUBSTR(release_date, 1,4) AS release_year, SUM(revenue)
  WHERE release_date IS NOT NULL 
  GROUP BY release_year 
  ORDER BY revenue;
--- From the data movies released >2000 are siginifacntly more likely to generate more revenue than <2000, due to increased revenue sources including DVD and steaming services.
+-- From the data movies released >2000 are siginifacntly more likely to generate more revenue than <2000, due to increased revenue sources such as DVD and steaming services.
 
+#2. How has average movie rating changed over time?
+SELECT SUBSTR(release_date,1,4) AS release_year, AVG(vote_average) AS average_rating
+ FROM movies 
+ GROUP BY release_year 
+ ORDER BY release_year;
+-- With an average movie rating of 6.1, films released in the 1900s are more likely to achieve ratings well above the average and do so more consistently than films released in the 2000s.
 
+#3. How has audience engagement (vote_count) evolved over time?
+SELECT SUBSTR(release_date, 1,4) AS release_year, SUM(vote_count) 
+ FROM movies 
+ GROUP BY release_year
+ ORDER BY release_year 
+ DESC
+-- Audience engagement has grown exponentially over time, but experienced the largest increases after 2000 because of larger digital adoption and accessibility.
 
+ Financial / ROI Analysis
+#1. Which movies earned less than their budget?
+SELECT original_title, budget, revenue, (revenue-budget) AS profit_loss 
+ FROM movies 
+ WHERE revenue<budget AND budget>1 
+ ORDER BY profit_loss ASC;
+-- The movie with the largest negative ROI was The Lone Ranger with a loss of $165,710,090
 
-
-
+#2. Which directors generate the highest total profit?
+SELECT name AS director, SUM(revenue-budget) AS total_profit 
+ FROM movies 
+ JOIN directors ON movies.director_id = directors.id 
+ WHERE revenue IS NOT NULL AND budget IS NOT NULL
+ GROUP BY director
+ ORDER BY total_profit DESC;
+-- The top directors that geterated the highest total profit are Steven Spielberg, Peter Jackson, James Cameron, Michael Bay, and Christopher Nolan.
 
 
 
