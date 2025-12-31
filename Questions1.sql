@@ -69,7 +69,24 @@ David Yates     193333333.333333
 Brenda Chapman  185000000.0   
 - movies.director_id is a foreign key to directors.id that is why they can join
   -“For each movie, find the director whose id matches the movie’s director_id.”
-```
+
+#4. Which directors outperform the dataset’s average rating?
+ SELECT AVG(vote_average) FROM movies;
+
+ SELECT name, AVG(vote_average)
+ FROM directors JOIN movies 
+ ON directors.id = movies.director_id 
+ GROUP BY name 
+ HAVING AVG(vote_average)>(SELECT AVG (vote_average) FROM movies); 
+
+Trend Analysis
+#1. How has total revenue changed by release year?
+SELECT  SUBSTR(release_date, 1,4) AS release_year, SUM(revenue) 
+ FROM movies 
+ WHERE release_date IS NOT NULL 
+ GROUP BY release_year 
+ ORDER BY revenue;
+-- From the data movies released >2000 are siginifacntly more likely to generate more revenue than <2000, due to increased revenue sources including DVD and steaming services.
 
 
 
