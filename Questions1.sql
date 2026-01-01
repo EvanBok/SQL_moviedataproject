@@ -128,6 +128,37 @@ SELECT SUBSTR(release_date,1,4) AS release_year, AVG(revenue-budget) AS avg_roi
 -- Movies from 1970-1990 tend to have the highest average ROI.
 
 Qualifications
+#1. Which directors have made at least 5 movies?
+SELECT name AS director_name, 
+ COUNT(movies.id) AS total_movies 
+ FROM movies 
+ JOIN directors 
+ ON movies.director_id = directors.id 
+ GROUP BY direcotr_name 
+ HAVING total_movies>=5
+ ORDER BY total_movies DESC;
+-- Of directors having made at least 5 movies Steven Spielberg has made the most with 27 movies.
+
+#2. Which directors have an average rating ≥ 7.5 with at least 3 movies?
+SELECT name AS director_name, AVG(vote_average) AS avg_rating, 
+ COUNT(movies.id) total_movies 
+ FROM movies 
+ JOIN directors 
+ ON movies.director_id = directors.id 
+ GROUP BY director_name 
+ HAVING avg_rating>=7.5 AND total_movies>=3
+ ORDER BY avg_rating DESC;
+
+#3. Which directors have total revenue above $1B?
+ SELECT name AS movie_director, SUM(revenue) AS movie_revenue 
+ FROM movies 
+ JOIN directors 
+ ON movies.director_id = directors.id 
+ GROUP BY movie_director
+ HAVING movie_revenue > 1000000000
+ ORDER BY movie_revenue DESC;
+
+Insight and Decision making
 
 
 
