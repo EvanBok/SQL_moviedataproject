@@ -171,7 +171,23 @@ SELECT
  ORDER BY avg_rating DESC, total_revenue DESC;
 -- The conditions to qualify for high ratings and strong revnue are to be above the average movie rating of 6.12, average total revenue of 82777095, and having made at least 3 movies, both averages derived from the dataset.
 
-#2. Which directors are the safest investment based on consistency?
+#2. Which directors have the most consistent financial outcomes?
+ SELECT 
+  name AS director, 
+ COUNT(movies.id) AS movie_count,
+  AVG(revenue-budget) AS avg_profit,
+  MIN(revenue-budget) AS min_profit,
+  MAX(revenue-budget) AS max_profit,
+  (MAX(revenue-budget) - MIN(revenue-budget)) AS profit_range
+ FROM movies 
+ JOIN directors
+ ON movies.director_id = directors.id
+ WHERE revenue>0 AND budget>0
+ GROUP BY director
+ HAVING COUNT(movies.id)>3
+ ORDER BY avg_profit DESC, profit_range ASC;
+ -- Here I find directors with consistent financial outcomes by identifying director volatility (profit_range) and director average profit (avg_profit). I order by directors with high average profit and low profit range to show results that signify the trade off.
+
 
 
 #3. Who produces above-average ratings without requiring above-average budgets?
@@ -214,6 +230,16 @@ HAVING COUNT(movies.id)>3
 ORDER BY profitable_films DESC;
 -- because it is asking how frequently (how often) a director produces profitable films we use COUNT(movies.id) and not revenue-budget. R-B would be used if profitable is the movie or director not how often.
 
+#8. Which directors are consistently profitable?
+SELECT name AS director, AVG(revenue-budget) AS avg_profit, COUNT(movies.id) FROM movies JOIN directors ON movies.director_id = directors.id WHERE revenue>0 AND budget>0 GROUP BY director HAVING avg_profit> 53552482 AND COUNT(movies.id)>=3 ORDER BY avg_profit DESC;
 
+#9. Which directors avoid major financial losses?
 
+#10. Which directors have the highest average audience rating?
 
+#11. Which directors maintain rating consistency across films?
+
+#12. Which directors attract the largest total audience engagement?
+
+Which directors show improving financial performance over time?
+Which directors show improving audience reception?
