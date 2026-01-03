@@ -13,3 +13,5 @@ The producer company I work for is a large-cap, growth oriented film production 
 * Sorting: ORDER BY
 * Aggregations: SUM, AVG, COUNT, MIN, MAX
 * Joining; INNER JOIN, LEFT JOIN, RIGHT JOIN
+
+Note: Directors only qualify if they have produced >=3 movies to reduce sampling bias.
