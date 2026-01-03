@@ -250,3 +250,40 @@ GROUP BY director
 HAVING COUNT(movies.id)>3
 ORDER BY total_votes DESC, popularity DESC;
 
+Budget
+#1. Directors budget metrics
+SELECT
+  d.name AS director,
+  COUNT(m.id) AS movie_count,
+  AVG(m.budget) AS avg_budget,
+  MIN(m.budget) AS min_budget,
+  MAX(m.budget) AS max_budget
+FROM movies m
+JOIN directors d
+ON m.director_id = d.id
+WHERE m.budget > 0
+GROUP BY d.id, d.name
+HAVING COUNT(m.id) >= 3
+ORDER BY avg_budget DESC;
+
+#2. Which directors fit the $300-$400M annual budget for 3 movies?
+SELECT
+  d.name AS director,
+  COUNT(m.id) AS movie_count,
+  AVG(m.budget) AS avg_budget,
+  MAX(m.budget) AS max_budget,
+  (AVG(m.budget) * 3) AS estimated_annual_spend
+FROM movies m
+JOIN directors d
+ON m.director_id = d.id
+WHERE m.budget > 0
+GROUP BY d.id, d.name
+HAVING
+COUNT(m.id) >= 3 AND (AVG(m.budget) * 3) BETWEEN 300000000 AND 400000000 AND MAX(m.budget) <= 120000000
+ORDER BY estimated_annual_spend ASC;
+
+
+
+
+
+
