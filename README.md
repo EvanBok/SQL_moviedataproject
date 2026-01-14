@@ -8,7 +8,7 @@ The producer company I work for is a large-cap, growth oriented film production 
 
 ## Commands Used
 * SELECT
-* Filtering: WHERE, HAING, AND, OR
+* Filtering: WHERE, HAVING, AND, OR
 * Grouping: GROUP BY
 * Sorting: ORDER BY
 * Aggregations: SUM, AVG, COUNT, MIN, MAX
